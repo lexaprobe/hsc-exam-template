@@ -1,0 +1,94 @@
+\usepackage{pgffor}
+\usepackage{tikz}
+\usepackage{array}
+\usepackage[utf8]{inputenc}
+\usepackage[margin=1in]{geometry}
+\usepackage{fontspec}
+\usepackage{titlesec}
+\usepackage{tasks}
+\usepackage{enumitem}
+\setmainfont{Times New Roman}
+
+\settasks{
+    label=\Alph*.,
+    label-width=4.6ex,
+    column-sep=2em
+}
+
+\titleformat{\section}
+{\large\bfseries}
+{\thesection}
+{1em}
+{}
+
+\titleformat{\subsection}
+{\normalfont\mdseries}
+{\thesubsection}
+{1em}
+{}
+
+\newcommand{\writinglines}[1]{
+    \vspace{1em}
+    \foreach \i in {1,...,#1} {
+            \vspace{1em}
+            \dotfill
+            \par
+        }
+}
+
+\newcommand{\examsection}[2]{
+    \section*{#1}
+    #2 \\
+    \hrule
+}
+
+\newcommand{\questionheader}[2]{
+    \subsection*{\textbf{#1} (#2)}
+}
+
+\newcommand{\questionsubheader}[2]{
+    \subsection*{#1 (#2)}
+}
+
+\newcommand{\question}[3]{
+    \vspace{1.5em}
+    \noindent
+    \begin{tabular*}{\textwidth}{@{}p{2.5em}@{}p{\dimexpr\textwidth-6em\relax}@{\extracolsep{\fill}}r@{}}
+        #1 & #2 & \textbf{#3}
+    \end{tabular*}
+    \par\vspace{2em}
+}
+
+\newcommand{\questionpart}[3]{
+    \vspace{1.5em}
+    \noindent
+    \begin{tabular*}{\textwidth}{@{}p{2.5em}@{}p{\dimexpr\textwidth-9.5em\relax}@{\hspace{4em}}r@{}}
+        #1 & #2 & \textbf{#3}
+    \end{tabular*}
+    \par\vspace{2em}
+}
+
+\newcommand{\multi}[2]{
+    \vspace{1.5em}
+    \noindent
+    \begin{tabular*}{\textwidth}{@{}p{2.5em}@{}p{\dimexpr\textwidth-4em\relax}}
+        #1 & #2
+    \end{tabular*}
+    \par\vspace{2em}
+}
+
+\newcommand{\multipart}[2]{
+    \vspace{1em}
+    \noindent
+    \noindent
+    \begin{tabular*}{\textwidth}{@{}p{2.5em}@{}p{\dimexpr\textwidth-9.5em\relax}}
+        #1 & #2
+    \end{tabular*}
+    \par
+}
+
+\newcommand{\annotatedpagebreak}[1]{
+    \vspace{1em}
+    {\centering\textbf{#1}\par}
+    \pagebreak
+}

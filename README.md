@@ -1,0 +1,1 @@
+# HSC Math Exam Template

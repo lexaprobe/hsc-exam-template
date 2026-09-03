@@ -1,0 +1,7 @@
+# latex aux files
+*.aux
+*.log
+*.gz
+
+# junk files
+.DS_Store
