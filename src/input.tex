@@ -5,15 +5,8 @@
 \usepackage[margin=1in]{geometry}
 \usepackage{fontspec}
 \usepackage{titlesec}
-\usepackage{tasks}
-\usepackage{enumitem}
+\usepackage{environ}
 \setmainfont{Times New Roman}
-
-\settasks{
-    label=\Alph*.,
-    label-width=4.6ex,
-    column-sep=2em
-}
 
 \titleformat{\section}
 {\large\bfseries}
@@ -27,18 +20,11 @@
 {1em}
 {}
 
-\newcommand{\writinglines}[1]{
-    \vspace{1em}
-    \foreach \i in {1,...,#1} {
-            \vspace{1em}
-            \dotfill
-            \par
-        }
-}
-
-\newcommand{\examsection}[2]{
+\NewEnviron{sectionheader}[1]
+{
     \section*{#1}
-    #2 \\
+    \BODY
+    \\
     \hrule
 }
 
@@ -50,34 +36,34 @@
     \subsection*{#1 (#2)}
 }
 
-\newcommand{\question}[3]{
-    \vspace{1.5em}
+\NewEnviron{question}[2]{
+    \par\addvspace{1.5em}
     \noindent
     \begin{tabular*}{\textwidth}{@{}p{2.5em}@{}p{\dimexpr\textwidth-6em\relax}@{\extracolsep{\fill}}r@{}}
-        #1 & #2 & \textbf{#3}
+        #1 & \BODY & \textbf{#2}
     \end{tabular*}
-    \par\vspace{2em}
+    \par\addvspace{2em}
 }
 
-\newcommand{\questionpart}[3]{
-    \vspace{1.5em}
+\NewEnviron{questionpart}[2]{
+    \par\addvspace{1.5em}
     \noindent
     \begin{tabular*}{\textwidth}{@{}p{2.5em}@{}p{\dimexpr\textwidth-9.5em\relax}@{\hspace{4em}}r@{}}
-        #1 & #2 & \textbf{#3}
+        #1 & \BODY & \textbf{#2}
     \end{tabular*}
-    \par\vspace{2em}
+    \par\addvspace{2em}
 }
 
-\newcommand{\multi}[2]{
-    \vspace{1.5em}
+\NewEnviron{multi}[1]{
+    \par\addvspace{1.5em}
     \noindent
     \begin{tabular*}{\textwidth}{@{}p{2.5em}@{}p{\dimexpr\textwidth-4em\relax}}
-        #1 & #2
+        #1 & \BODY
     \end{tabular*}
-    \par\vspace{2em}
+    \par\addvspace{2em}
 }
 
-\newcommand{\multipart}[2]{
+\newcommand{\choice}[2]{
     \vspace{1em}
     \noindent
     \noindent
@@ -85,6 +71,15 @@
         #1 & #2
     \end{tabular*}
     \par
+}
+
+\newcommand{\writinglines}[1]{
+    \vspace{1em}
+    \foreach \i in {1,...,#1} {
+            \vspace{1em}
+            \dotfill
+            \par
+        }
 }
 
 \newcommand{\annotatedpagebreak}[1]{
