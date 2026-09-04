@@ -8,6 +8,8 @@
 \usepackage{environ}
 \setmainfont{Times New Roman}
 
+\renewcommand{\thepage}{– \arabic{page} –}
+
 \titleformat{\section}
 {\large\bfseries}
 {\thesection}
@@ -20,12 +22,38 @@
 {1em}
 {}
 
+\newenvironment{coverpage}{
+    \fontspec{Arial}
+    \newcommand{\examtitle}[1]{
+        {\noindent\fontsize{33}{39}\selectfont ##1}
+    }
+    \newcommand{\examyear}[1]{
+        \noindent\setlength{\fboxsep}{4pt}\fbox{\Large\textbf{##1}}
+    }
+    \newcommand{\examsubtitle}[1]{
+        \noindent\footnotesize\textbf{##1}
+    }
+}{
+    \pagebreak
+}
+
+\NewEnviron{examinfo}[1]{
+    \setlength{\extrarowheight}{4pt}
+    \par\addvspace{3ex}
+    {\noindent\fontsize{12}{13}\selectfont
+        \begin{tabular*}{\textwidth}{@{}p{6.75em}@{}p{0.5em}@{}p{\dimexpr\textwidth-4em\relax}}
+            \cline{1-1}
+            {\raggedright\textbf{#1}\par} & & \BODY
+        \end{tabular*}}
+    \par\addvspace{4ex}
+}
+
 \NewEnviron{sectionheader}[1]
 {
     \section*{#1}
     \BODY
     \\
-    \hrule
+    \rule{\textwidth}{0.3mm}
 }
 
 \newcommand{\questionheader}[2]{
@@ -37,34 +65,34 @@
 }
 
 \NewEnviron{question}[2]{
-    \par\addvspace{1.5em}
+    \par\addvspace{3ex}
     \noindent
     \begin{tabular*}{\textwidth}{@{}p{2.5em}@{}p{\dimexpr\textwidth-6em\relax}@{\extracolsep{\fill}}r@{}}
         #1 & \BODY & \textbf{#2}
     \end{tabular*}
-    \par\addvspace{2em}
+    \par\addvspace{4ex}
 }
 
 \NewEnviron{questionpart}[2]{
-    \par\addvspace{1.5em}
+    \par\addvspace{3ex}
     \noindent
     \begin{tabular*}{\textwidth}{@{}p{2.5em}@{}p{\dimexpr\textwidth-9.5em\relax}@{\hspace{4em}}r@{}}
         #1 & \BODY & \textbf{#2}
     \end{tabular*}
-    \par\addvspace{2em}
+    \par\addvspace{4ex}
 }
 
 \NewEnviron{multi}[1]{
-    \par\addvspace{1.5em}
+    \par\addvspace{3ex}
     \noindent
     \begin{tabular*}{\textwidth}{@{}p{2.5em}@{}p{\dimexpr\textwidth-4em\relax}}
         #1 & \BODY
     \end{tabular*}
-    \par\addvspace{2em}
+    \par\addvspace{4ex}
 }
 
 \newcommand{\choice}[2]{
-    \vspace{1em}
+    \vspace{2ex}
     \noindent
     \noindent
     \begin{tabular*}{\textwidth}{@{}p{2.5em}@{}p{\dimexpr\textwidth-9.5em\relax}}
@@ -74,16 +102,16 @@
 }
 
 \newcommand{\writinglines}[1]{
-    \vspace{1em}
+    \vspace{2ex}
     \foreach \i in {1,...,#1} {
-            \vspace{1em}
+            \vspace{0.6cm}
             \dotfill
             \par
         }
 }
 
 \newcommand{\annotatedpagebreak}[1]{
-    \vspace{1em}
+    \vspace{2ex}
     {\centering\textbf{#1}\par}
     \pagebreak
 }
