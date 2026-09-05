@@ -24,11 +24,14 @@
 
 \newenvironment{coverpage}{
     \fontspec{Arial}
+    \newcommand{\namespace}[1][Name:]{
+        \noindent ##1 \rule{14em}{0.3mm}
+    }
     \newcommand{\examtitle}[1]{
         {\noindent\fontsize{33}{39}\selectfont ##1}
     }
     \newcommand{\examyear}[1]{
-        \noindent\setlength{\fboxsep}{4pt}\fbox{\Large\textbf{##1}}
+        \noindent\setlength{\fboxsep}{4pt}\fbox{\fontsize{16}{18}\selectfont\textbf{##1}}
     }
     \newcommand{\examsubtitle}[1]{
         \noindent\footnotesize\textbf{##1}
@@ -41,7 +44,7 @@
     \setlength{\extrarowheight}{4pt}
     \par\addvspace{3ex}
     {\noindent\fontsize{12}{13}\selectfont
-        \begin{tabular*}{\textwidth}{@{}p{6.75em}@{}p{0.5em}@{}p{\dimexpr\textwidth-4em\relax}}
+        \begin{tabular*}{\textwidth}{@{}p{6.75em}@{}p{0.5em}@{}p{\dimexpr\textwidth-7.5em\relax}}
             \cline{1-1}
             {\raggedright\textbf{#1}\par} & & \BODY
         \end{tabular*}}
@@ -54,6 +57,14 @@
     \BODY
     \\
     \rule{\textwidth}{0.3mm}
+}
+
+\newcommand{\blankpage}[1][BLANK PAGE]{
+    \clearpage
+    \mbox{}\vfill
+    \centerline{#1}
+    \vfill\mbox{}
+    \clearpage
 }
 
 \newcommand{\questionheader}[2]{
