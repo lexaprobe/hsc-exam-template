@@ -1,11 +1,15 @@
-\usepackage{pgffor}
-\usepackage{tikz}
-\usepackage{array}
 \usepackage[utf8]{inputenc}
 \usepackage[margin=1in]{geometry}
-\usepackage{fontspec}
-\usepackage{titlesec}
-\usepackage{environ}
+\usepackage{array}
+\usepackage{pgffor} % needed for \for-each in \writinglines
+\usepackage{tikz} % generate math diagrams
+\usepackage{titlesec} % change title formatting
+\usepackage{environ} % more control over creating new environments
+\usepackage{amsmath} % allows \text{} within math mode
+\usepackage{fontspec} % font customisation
+\usepackage{unicode-math} % switch math font
+
+\setmathfont{TeX Gyre Termes Math}
 \setmainfont{Times New Roman}
 
 \renewcommand{\thepage}{– \arabic{page} –}
@@ -68,7 +72,7 @@
 }
 
 \newcommand{\questionheader}[2]{
-    \subsection*{\textbf{#1} (#2)}
+    \subsection*{\textbf{#1} (#2 marks)}
 }
 
 \newcommand{\questionsubheader}[2]{
@@ -79,7 +83,7 @@
     \par\addvspace{3ex}
     \noindent
     \begin{tabular*}{\textwidth}{@{}p{2.5em}@{}p{\dimexpr\textwidth-6em\relax}@{\extracolsep{\fill}}r@{}}
-        #1 & \BODY & \textbf{#2}
+        (#1) & \BODY & \textbf{#2}
     \end{tabular*}
     \par\addvspace{4ex}
 }
@@ -88,31 +92,31 @@
     \par\addvspace{3ex}
     \noindent
     \begin{tabular*}{\textwidth}{@{}p{2.5em}@{}p{\dimexpr\textwidth-9.5em\relax}@{\hspace{4em}}r@{}}
-        #1 & \BODY & \textbf{#2}
+        (#1) & \BODY & \textbf{#2}
     \end{tabular*}
     \par\addvspace{4ex}
 }
 
-\NewEnviron{multi}[1]{
+\NewEnviron{multi}[1][1]{
     \par\addvspace{3ex}
     \noindent
     \begin{tabular*}{\textwidth}{@{}p{2.5em}@{}p{\dimexpr\textwidth-4em\relax}}
-        #1 & \BODY
+        \textbf{#1} & \BODY
     \end{tabular*}
     \par\addvspace{4ex}
 }
 
-\newcommand{\choice}[2]{
+\newcommand{\choice}[2][A]{
     \vspace{2ex}
     \noindent
     \noindent
     \begin{tabular*}{\textwidth}{@{}p{2.5em}@{}p{\dimexpr\textwidth-9.5em\relax}}
-        #1 & #2
+        #1. & #2
     \end{tabular*}
     \par
 }
 
-\newcommand{\writinglines}[1]{
+\newcommand{\writinglines}[1][1]{
     \vspace{2ex}
     \foreach \i in {1,...,#1} {
             \vspace{0.6cm}
