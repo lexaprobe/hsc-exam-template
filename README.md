@@ -22,7 +22,7 @@ git clone https://github.com/lexaprobe/hsc-exam-template.git
 
 To generate a PDF for `exam.tex`, run `make exam` from the terminal. Alternatively, use your editor's build features (assuming it's using LuaLaTeX).
 
-To compile a different LaTeX file, or if you change the name of `exam.tex`, simply run `make <your-filename>` from the terminal.
+To compile a different LaTeX file, or if you change the name of `exam.tex`, simply run `make <your-filename>` (without `.tex`) from the terminal.
 
 ## Example Usage
 
