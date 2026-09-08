@@ -1,4 +1,4 @@
-# HSC Math Exam Template
+# HSC Exam Template
 
 Write exams that match the HSC format using this custom [LaTeX](https://www.latex-project.org/) template!
 
