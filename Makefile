@@ -1,15 +1,15 @@
 .SILENT:
 
 LATEXMK := latexmk -silent
+LATEX_SOURCES := $(wildcard *.tex)
+TARGETS := $(basename $(LATEX_SOURCES))
 
-%.tex:
-	@$(LATEXMK) $@ && mv build/%.pdf .
+.PHONY: all $(TARGETS) clean
 
-exam: exam.tex
+all: $(TARGETS)
 
-all: exam
+$(TARGETS):
+	@$(LATEXMK) $@.tex && mv build/$@.pdf .
 
 clean:
 	@$(LATEXMK) -C
-
-.PHONY: all exam sample clean
