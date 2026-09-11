@@ -1,6 +1,7 @@
 \usepackage[utf8]{inputenc}
 \usepackage[margin=1in]{geometry}
 \usepackage{array}
+\usepackage{enumitem} % more customisation for lists
 \usepackage{pgffor} % needed for \for-each in \writinglines
 \usepackage{tikz} % generate math diagrams
 \usepackage{titlesec} % change title formatting
@@ -12,7 +13,7 @@
 \setmathfont{TeX Gyre Termes Math}
 \setmainfont{Times New Roman}
 
-\renewcommand{\thepage}{– \arabic{page} –}
+\setlength{\parindent}{0pt} % remove paragraph indentation
 
 \titleformat{\section}
 {\large\bfseries}
@@ -26,28 +27,31 @@
 {1em}
 {}
 
+\renewcommand{\thepage}{– \arabic{page} –}
+
 \newenvironment{coverpage}{
     \fontspec{Arial}
     \newcommand{\namespace}[1][Name:]{
-        \noindent ##1 \rule{14em}{0.3mm}
+        ##1 \rule{14em}{0.3mm}
     }
     \newcommand{\examtitle}[1]{
-        {\noindent\fontsize{33}{39}\selectfont ##1}
+        {\fontsize{33}{39}\selectfont ##1}
     }
     \newcommand{\examyear}[1]{
-        \noindent\setlength{\fboxsep}{4pt}\fbox{\fontsize{16}{18}\selectfont\textbf{##1}}
+        \setlength{\fboxsep}{4pt}\fbox{\fontsize{16}{18}\selectfont\textbf{##1}}
     }
     \newcommand{\examsubtitle}[1]{
-        \noindent\footnotesize\textbf{##1}
+        \footnotesize\textbf{##1}
     }
 }{
     \pagebreak
 }
 
 \NewEnviron{examinfo}[1]{
+    \setlist[itemize]{leftmargin=*}
     \setlength{\extrarowheight}{4pt}
     \par\addvspace{3ex}
-    {\noindent\fontsize{12}{13}\selectfont
+    {\fontsize{12}{13}\selectfont
         \begin{tabular*}{\textwidth}{@{}p{6.75em}@{}p{0.5em}@{}p{\dimexpr\textwidth-7.5em\relax}}
             \cline{1-1}
             {\raggedright\textbf{#1}\par} & & \BODY
@@ -71,49 +75,56 @@
     \clearpage
 }
 
-\newcommand{\questionheader}[2]{
-    \subsection*{\textbf{#1} (#2 marks)}
-}
-
-\newcommand{\questionsubheader}[2]{
-    \subsection*{#1 (#2)}
-}
-
 \NewEnviron{question}[2]{
-    \par\addvspace{3ex}
-    \noindent
-    \begin{tabular*}{\textwidth}{@{}p{2.5em}@{}p{\dimexpr\textwidth-6em\relax}@{\extracolsep{\fill}}r@{}}
-        (#1) & \BODY & \textbf{#2}
-    \end{tabular*}
-    \par\addvspace{4ex}
+
+    \subsection*{\textbf{Question #1} (#2 marks)}
+
+    \newcommand{\continued}{
+        \subsection*{Question #1 (continued)}
+    }
+
+    \newcommand{\questionbody}[2][]{
+        \par\addvspace{3ex}
+        \begin{tabular*}{\textwidth}{@{}p{\dimexpr\textwidth-3em\relax}@{\extracolsep{\fill}}r@{}}
+            ##2 & \textbf{##1}
+        \end{tabular*}
+        \par\addvspace{4ex}
+    }
+
+    \newcommand{\questionpart}[3][]{
+        \par\addvspace{3ex}
+        \begin{tabular*}{\textwidth}{@{}p{2.5em}@{}p{\dimexpr\textwidth-6em\relax}@{\extracolsep{\fill}}r@{}}
+            (##2) & ##3 & \textbf{##1}
+        \end{tabular*}
+        \par\addvspace{4ex}
+    }
+
+    \newcommand{\questionsubpart}[3][]{
+        \par\addvspace{3ex}
+        \begin{tabular*}{\textwidth}{@{}p{2.5em}@{}p{\dimexpr\textwidth-8.5em\relax}@{\hspace{3em}}r@{}}
+            (##2) & ##3 & \textbf{##1}
+        \end{tabular*}
+        \par\addvspace{4ex}
+    }
+
+    \BODY
 }
 
-\NewEnviron{questionpart}[2]{
-    \par\addvspace{3ex}
-    \noindent
-    \begin{tabular*}{\textwidth}{@{}p{2.5em}@{}p{\dimexpr\textwidth-9.5em\relax}@{\hspace{4em}}r@{}}
-        (#1) & \BODY & \textbf{#2}
-    \end{tabular*}
-    \par\addvspace{4ex}
-}
+\NewEnviron{multi}[1]{
 
-\NewEnviron{multi}[1][1]{
+    \newcommand{\choice}[2][A]{
+        \vspace{2ex}
+        \begin{tabular*}{\textwidth}{@{}p{2.5em}@{}p{\dimexpr\textwidth-9.5em\relax}}
+            ##1. & ##2
+        \end{tabular*}
+        \par
+    }
+
     \par\addvspace{3ex}
-    \noindent
     \begin{tabular*}{\textwidth}{@{}p{2.5em}@{}p{\dimexpr\textwidth-4em\relax}}
         \textbf{#1} & \BODY
     \end{tabular*}
     \par\addvspace{4ex}
-}
-
-\newcommand{\choice}[2][A]{
-    \vspace{2ex}
-    \noindent
-    \noindent
-    \begin{tabular*}{\textwidth}{@{}p{2.5em}@{}p{\dimexpr\textwidth-9.5em\relax}}
-        #1. & #2
-    \end{tabular*}
-    \par
 }
 
 \newcommand{\writinglines}[1][1]{
